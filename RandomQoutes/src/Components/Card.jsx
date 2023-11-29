@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 export function Card() {
 
-    const [quoteContent, setQuoteContent] = useState("Every person, all the events of your life are there because you have drawn them there. What you choose to do with them is up to you.");
+    const [quoteContent, setQuoteContent] = useState("Click below button to Generate Quotes");
 
-    const [author, setAuthor] = useState("Benjamin Haydon");
+    const [author, setAuthor] = useState();
 
     async function randomQuote() {
         const response = await fetch('https://api.quotable.io/random')
