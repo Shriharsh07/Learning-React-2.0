@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import GobalApi from '../Services/GlobalApi'
 
-function GenreList() {
+function GenreList({ GenreId, GenreName }) {
 
     const [genreList, setGenreList] = useState([])
 
@@ -23,7 +23,8 @@ function GenreList() {
 
             {genreList.map((item, index) => (
                 <div
-                    onClick={() => setActiveIndex(index)}
+                    onClick={() => { { setActiveIndex(index) }; GenreId(item.id); GenreName(item.name) }}
+
                     className={`flex p-2 mb-2 gap-2 items-center cursor-pointer hover:bg-gray-300 rounded-lg group hover:dark:bg-gray-600 ${activeIndex == index ? "bg-gray-300 dark:bg-gray-600" : null}`}>
 
                     <img src={item.image_background} className={`w-[40px] h-[40px] object-cover rounded-lg group-hover:scale-105 transition-all ease-out duration-300 ${activeIndex == index ? "scale-105" : null}`} />

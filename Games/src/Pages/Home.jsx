@@ -9,36 +9,39 @@ function Home() {
 
     const [allGameList, setAllGameList] = useState();
     const [gamesByGenre, setGamesByGenre] = useState([]);
+    const [GenreName, setGenreName] = useState('Action')
 
     useEffect(() => {
         getAllGamesList();
-        getGameListByGenreId();
+        getGameListByGenreId(4);
     }, [])
 
     const getAllGamesList = () => {
         GlobalApi.getAllGames.then((resp) => {
             setAllGameList(resp.data.results);
-            setGamesByGenre(resp.data.results);
         })
     }
 
     const getGameListByGenreId = (id) => {
-        GlobalApi.getGameListbyGenreId(4).then((resp) => {
+        GlobalApi.getGameListbyGenreId(id).then((resp) => {
             console.log(resp.data.results);
+            setGamesByGenre(resp.data.results);
         })
     }
 
     return (
         <div className='grid grid-cols-4 px-8'>
             <div className='h-full hidden md:block'>
-                <GenreList />
+                <GenreList GenreId={(GenreId) => getGameListByGenreId(GenreId)}
+                    GenreName={(name) => setGenreName(name)} />
             </div>
             <div className='col-span-4 md:col-span-3 px-5'>
                 {allGameList?.length > 0 && gamesByGenre.length > 0 ?
                     <div>
                         < Banner gameBanner={allGameList[0]} />
                         <TrendingGames gameList={allGameList} />
-                        <GamesByGenreId gameList={gamesByGenre} />
+                        <GamesByGenreId gameList={gamesByGenre}
+                            GenreName={GenreName} />
                     </div>
                     : null}
             </div>
