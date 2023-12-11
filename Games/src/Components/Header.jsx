@@ -7,7 +7,6 @@ import { ThemeContext } from '../Context/ThemeContext'
 
 function Header() {
 
-    const [toggle, setToggle] = useState(true);
     const { theme, setTheme } = useContext(ThemeContext);
 
     useEffect(() => {
