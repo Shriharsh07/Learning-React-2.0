@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ShopContext } from '../context/ShopContext'
 
 function Product(props) {
 
     const { id, productName, price, productImage } = props.data;
 
+    const { addToCart, CartItems } = useContext(ShopContext)
+
+    const cartItemAmount = CartItems[id]
+
     return (
         <div >
-            <div className='grid grid-cols-3'>
+            <div>
                 <div className="w-[300px] rounded-md border m-6">
                     <img
                         src={productImage}
@@ -23,8 +28,9 @@ function Product(props) {
                         <button
                             type="button"
                             className="mt-4 w-full rounded-sm bg-black px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                            onClick={() => addToCart(id)}
                         >
-                            Add to cart
+                            Add to cart {cartItemAmount > 0 && <>({cartItemAmount})</>}
                         </button>
                     </div>
                 </div>
